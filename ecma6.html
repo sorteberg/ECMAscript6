@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <style type='text/css'>
+      /* Slideshow styles */
+      .hljs {
+        font-weight: bold;
+      }
+      .hljs-keyword {
+        color: #00f;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id='source'>
+
+class: center, middle
+
+# ECMAscript 6
+## Nye, 'kule' features
+
+---
+
+# Piler
+
+```javascript
+var dobbel = tall.map(t => 2*t);
+```
+Leksikal `this`
+```javascript
+var maxer = {
+  _max: 0,
+  _tall: [5, 3, 2, 9],
+  finnMax(tall) {
+    this._tall.forEach(t => {
+      if(t > this._max){
+        this._max = t;
+      }
+    }
+  }
+}
+```
+---
+
+# Klasser
+
+```javascript
+class Stasjonsvogn extends Bil {
+  constructor(hk, farge, bagasjevolum) {
+    super(hk, farge);
+    this._bagasjevolum = bagasjevolum;
+  }
+  trim() {
+    ...
+    super.trim();
+  }
+  static nyKulStasjonsvogn() {
+    return new Stasjonsvogn(250, 'sort', 1500);
+  }
+}
+```
+---
+
+# Strengmaler
+
+```javascript
+var navn = 'Bernt', sted = 'blikkboksen';
+`Hei ${navn}, velkommen til ${sted}?`
+```
+---
+
+# Destrukturering
+
+```javascript
+var [a, , b] = [1,2,3,4];
+```
+```javascript
+function alderOmTiÅr({alder: _år}){
+  return _år+10;
+}
+
+var person = {navn: 'Bernt', alder: 35, bosted: 'Teglverket'};
+alderOmTiÅr(person);
+```
+
+---
+
+# Default
+
+```javascript
+function f(x, y=10) {
+  return x + y;
+}
+f(3) == 13
+```
+
+# Rest
+```javascript
+function f(x, ...y) {
+  return y.length;
+}
+f('hei', 'hallo', 'heisann') == 2
+```
+
+# Spredning
+```javascript
+function f(x, y, z) {
+  return x + y + z;
+}
+f(...[1,2,3]) == 6
+```
+
+---
+
+# `let`
+
+```javascript
+function f() {
+  {
+    var y = 'per';
+    let x = 'ola';
+    
+    x = 'ivar';
+    let x = 'stig'; // gir feil
+  }
+
+  x === undefined
+  y === 'per'
+}
+```
+
+# `const`
+Fungerer som `var` bare at den kun kan settes én gang
+```js
+function f() {
+  const x = 'hei';
+  x = 'hadet' // gir feil
+}
+```
+
+---
+
+# Iteratorer
+```js
+let nummersekvensTilTusen = {
+  [Symbol.iterator]() {
+    let tall = 0;
+    return {
+      next() {
+        tall++;
+        return { done: tall < 1000, value: tall }
+      }
+    }
+  }
+}
+```
+
+# `for ... of`
+```js
+for (var n of nummersekvensTilTusen) {
+  console.log(n);
+}
+```
+
+---
+
+#Generatorer
+
+```js
+function* tallGenerator() {
+    var tall = 0;
+    while(true) {
+      yield tall++;
+    }
+}
+
+var generator = tallGenerator();
+
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 2
+```
+
+---
+
+# Comprehension
+
+Liste-comprehensions
+```js
+var resultat = [
+  for(k of kunder)
+    if (k.by == "Steinkjer")
+      { navn: k.navn }
+]
+```
+
+Generator-comprehensions
+```js
+var resultat = (
+  for(k of kunder)
+    if (k.by == "Steinkjer")
+      { navn: k.navn }
+)
+```
+---
+
+# Moduler
+lib/math.js
+```js
+export function sum(x, y) {
+  return x + y;
+}
+export var pi = 3.141593;
+```
+
+app.js
+```js
+module math from "lib/math";
+alert("2π = " + math.sum(math.pi, math.pi));
+```
+otherApp.js
+```js
+import {sum, pi} from "lib/math";
+alert("2π = " + sum(pi, pi));
+```
+
+    </textarea>
+    <script src='http://gnab.github.io/remark/downloads/remark-0.6.2.min.js' type='text/javascript'>
+    </script>
+    <script type='text/javascript'>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>

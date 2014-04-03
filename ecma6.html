@@ -19,7 +19,7 @@
 class: center, middle
 
 # ECMAscript 6
-## Nye, 'kule' features
+## https://github.com/lukehoban/es6features
 
 ---
 
@@ -59,6 +59,14 @@ class Stasjonsvogn extends Bil {
   static nyKulStasjonsvogn() {
     return new Stasjonsvogn(250, 'sort', 1500);
   }
+}
+```
+
+```js
+class MinArray extends Array {
+    constructor(...args) { 
+      super(...args); 
+    }
 }
 ```
 ---
@@ -225,6 +233,66 @@ otherApp.js
 import {sum, pi} from "lib/math";
 alert("2π = " + sum(pi, pi));
 ```
+
+---
+# `Set`
+```js
+var s = new Set();
+s.add("hei").add("hallo").add("hei");
+s.size === 2;
+```
+
+# `Map`
+```js
+var m = new Map();
+m.set('hei', 42);
+m.get('hei') == 42;
+```
+
+Har også `WeakSet` og `WeakMap`
+
+---
+
+# Promises
+
+```js
+function noeSomTarTid() {
+  return new Promise((onResolve, onReject) => {
+    setTimeout(onResolve, 5000); // Simulerer noe som tar tid
+  });
+}
+```
+
+```js
+noeSomTarTid().then(()=>{
+  console.log("Det gikk bra!");
+}, ()=>{
+  console.log("Det skjedde en feil!");
+});
+```
+
+Har også `catch`.
+
+```js
+Promise.all([noeSomTarTid, noeAnnetSomTarTid]).then(()=>{
+  console.log('Ferdig!');
+});
+```
+
+---
+
+# I tillegg:
+
+* Proxyer
+* Symboler
+* Utvidede API-er: 
+  * `Number`
+  * `Math`
+  * `Array`
+  * `Object`
+
+---
+
 
     </textarea>
     <script src='http://gnab.github.io/remark/downloads/remark-0.6.2.min.js' type='text/javascript'>
